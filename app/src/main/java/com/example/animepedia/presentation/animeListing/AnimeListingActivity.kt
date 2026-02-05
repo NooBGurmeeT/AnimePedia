@@ -49,7 +49,7 @@ class AnimeListingActivity : ComponentActivity() {
             )
         }
 
-        viewModel.loadNextPage(isOnline = true)
+        viewModel.loadNextPage(isOnline = isInternetAvailable)
     }
 
     private fun openAnimeDetail(animeId: Int, animeTitle: String) {
@@ -60,7 +60,6 @@ class AnimeListingActivity : ComponentActivity() {
             }
             startActivity(intent)
         } catch (e: Exception) {
-            // ✅ exception logging allowed
             appLogger.logError("AnimeListingActivity", "Navigation failed", e)
         }
     }

@@ -51,7 +51,8 @@ class AnimeDetailActivity : ComponentActivity() {
                 onBack = {
                     appLogger.logInfo("AnimeDetailActivity", "Back pressed")
                     finish()
-                }
+                },
+                isOnline = isInternetAvailable,
             )
         }
     }

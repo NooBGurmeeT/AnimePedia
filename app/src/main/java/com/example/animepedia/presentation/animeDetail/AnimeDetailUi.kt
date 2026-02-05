@@ -30,6 +30,7 @@ class AnimeDetailUI {
         animeTitle: String,
         anime: AnimeDetailModel?,
         loading: Boolean,
+        isOnline: Boolean,
         onBack: () -> Unit
     ) {
         BackHandler { onBack() }
@@ -71,7 +72,8 @@ class AnimeDetailUI {
                 anime != null -> {
                     Content(
                         anime = anime,
-                        paddingValues = paddingValues
+                        paddingValues = paddingValues,
+                        isOnline = isOnline,
                     )
                 }
             }
@@ -83,7 +85,8 @@ class AnimeDetailUI {
     @Composable
     private fun Content(
         anime: AnimeDetailModel,
-        paddingValues: PaddingValues
+        paddingValues: PaddingValues,
+        isOnline: Boolean,
     ) {
         Column(
             modifier = Modifier
@@ -94,7 +97,8 @@ class AnimeDetailUI {
 
             MediaSection(
                 imageUrl = anime.imageUrl,
-                trailerUrl = anime.trailerUrl
+                trailerUrl = anime.trailerUrl,
+                isOnline = isOnline,
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -108,7 +112,8 @@ class AnimeDetailUI {
     @Composable
     private fun MediaSection(
         imageUrl: String,
-        trailerUrl: String?
+        trailerUrl: String?,
+        isOnline: Boolean,
     ) {
         Card(
             modifier = Modifier
@@ -117,14 +122,14 @@ class AnimeDetailUI {
             shape = RoundedCornerShape(16.dp),
             elevation = CardDefaults.cardElevation(6.dp)
         ) {
-            if (!trailerUrl.isNullOrBlank()) {
+            if (!trailerUrl.isNullOrBlank() && isOnline) {
                 AnimeTrailerWebView(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(220.dp),
                     embedUrl = trailerUrl
                 )
-            } else {
+            } else if(imageUrl.isNotEmpty()) {
                 AsyncImage(
                     model = imageUrl,
                     contentDescription = "Anime Poster",
