@@ -13,12 +13,14 @@ android {
     defaultConfig {
         applicationId = "com.example.animepedia"
         minSdk = 24
+
         targetSdk = 36
+
         versionCode = 1
         versionName = "1.0"
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -50,28 +52,33 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)
 
-    // Hilt (Dependency Injection)
+    // Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
-    // Network (Retrofit)
+    // Network & Database
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
     implementation(libs.okhttp.logging)
-
-    // Database (Room)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     kapt(libs.room.compiler)
 
-    // Media & UI
+    // UI & Media
     implementation(libs.coil.compose)
     implementation(libs.media3.exoplayer)
     implementation(libs.media3.ui)
-
-    // Compose BOM
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material3)
+
+    // --- TESTING SECTION ---
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+
+    androidTestImplementation(libs.hilt.testing)
+    kaptAndroidTest(libs.hilt.compiler)
 }
